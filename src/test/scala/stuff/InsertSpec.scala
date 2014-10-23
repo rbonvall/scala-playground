@@ -15,8 +15,8 @@ class InsertIntoOrderedListSpec extends FunSpec {
     insert2 _
   )
 
-  functions foreach { (insertFunction) =>
-    describe("insert1") {
+  functions.zipWithIndex foreach { case (insertFunction, index) =>
+    describe(s"insert$index") {
       it("should insert into correct position of a long list") {
         val l = List(11, 33, 55, 77, 88)
         assert(insertFunction(l,  0) == List( 0, 11, 33, 55, 77, 88))
