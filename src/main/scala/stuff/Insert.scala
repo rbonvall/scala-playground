@@ -9,6 +9,9 @@ object InsertIntoOrderedList {
       else          x :: insert1(xs, elem)
   }
 
-  def insert2[T <% Ordered[T]](list: List[T], elem: T): List[T] = list
+  def insert2[T <% Ordered[T]](list: List[T], elem: T): List[T] = {
+    val (pre, post) = list span {_ < elem}
+    pre ::: elem :: post
+  }
 
 }
