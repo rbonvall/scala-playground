@@ -14,4 +14,9 @@ object InsertIntoOrderedList {
     pre ::: elem :: post
   }
 
+  def insert2[T <% Ordered[T]](list: List[T], elem: T): List[T] = {
+    elem :: list
+  }
+
+
 }
