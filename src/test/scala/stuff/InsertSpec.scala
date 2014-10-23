@@ -5,12 +5,12 @@ import stuff.InsertIntoOrderedList._
 
 class InsertIntoOrderedListSpec extends FunSpec {
 
-  val functions = Seq[(List[Int], Int) => List[Int]](
+  def functions[T <% Ordered[T]] = Seq[(List[T], T) => List[T]](
     insert1 _,
     insert2 _
   )
 
-  functions.zipWithIndex foreach { case (insertFunction, index) =>
+  functions[Int].zipWithIndex foreach { case (insertFunction, index) =>
     describe(s"insert$index") {
       it("should insert into correct position of a long list") {
         val l = List(11, 33, 55, 77, 88)
