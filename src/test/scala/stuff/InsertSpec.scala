@@ -5,10 +5,18 @@ import stuff.InsertIntoOrderedList._
 
 class InsertIntoOrderedListSpec extends FunSpec {
 
-  val functions = Seq(insert1 _)
+  // val functions = Seq[Product2[(List[Int], Int) => List[Int], String]](
+  //   ( insert1 _ , "insert1"),
+  //   ( insert2 _ , "insert2")
+  // )
+
+  val functions = Seq[(List[Int], Int) => List[Int]](
+    insert1 _
+    // insert2 _
+  )
 
   functions foreach { (insertFunction) =>
-    describe("insert") {
+    describe("insert1") {
       it("should insert into correct position of a long list") {
         val l = List(11, 33, 55, 77, 88)
         assert(insertFunction(l,  0) == List( 0, 11, 33, 55, 77, 88))
