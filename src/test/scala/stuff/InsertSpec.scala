@@ -6,8 +6,8 @@ import stuff.InsertIntoOrderedList._
 class InsertIntoOrderedListSpec extends FunSpec {
 
   def functions[T <% Ordered[T]] = Seq[(List[T], T) => List[T]](
-    insert1 _,
-    insert2 _
+    insert0 _,
+    insert1 _
   )
 
   functions[Int].zipWithIndex foreach { case (insertFunction, index) =>
