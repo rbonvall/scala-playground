@@ -1,6 +1,6 @@
 package stuff
 
-object Insert {
+object InsertIntoOrderedList {
 
   def insert1[T <% Ordered[T]](list: List[T], elem: T): List[T] = list match {
     case Nil => List(elem)

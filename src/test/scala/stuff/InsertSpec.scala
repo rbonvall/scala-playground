@@ -1,9 +1,9 @@
 package stuff
 
 import org.scalatest.FunSpec
-import stuff.Insert._
+import stuff.InsertIntoOrderedList._
 
-class InsertSpec extends FunSpec {
+class InsertIntoOrderedListSpec extends FunSpec {
 
   describe("insert") {
 
