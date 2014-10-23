@@ -5,11 +5,6 @@ import stuff.InsertIntoOrderedList._
 
 class InsertIntoOrderedListSpec extends FunSpec {
 
-  // val functions = Seq[Product2[(List[Int], Int) => List[Int], String]](
-  //   ( insert1 _ , "insert1"),
-  //   ( insert2 _ , "insert2")
-  // )
-
   val functions = Seq[(List[Int], Int) => List[Int]](
     insert1 _,
     insert2 _
