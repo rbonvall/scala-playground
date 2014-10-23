@@ -11,8 +11,8 @@ class InsertIntoOrderedListSpec extends FunSpec {
   // )
 
   val functions = Seq[(List[Int], Int) => List[Int]](
-    insert1 _
-    // insert2 _
+    insert1 _,
+    insert2 _
   )
 
   functions foreach { (insertFunction) =>
