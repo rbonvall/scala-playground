@@ -14,9 +14,15 @@ object InsertIntoOrderedList {
     pre ::: elem :: post
   }
 
+  // Tail recursive but relies on appending at the end.
   def insert2[T <% Ordered[T]](list: List[T], elem: T): List[T] = {
-    elem :: list
+    def iter(list: List[T], acc: List[T]): List[T] = list match {
+      case Nil => acc ++ List(elem)
+      case x :: xs =>
+        if (elem < x) acc ::: elem :: x :: xs
+        else          iter(xs, acc ++ List(x))
+    }
+    iter(list, Nil)
   }
-
 
 }
