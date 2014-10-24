@@ -16,14 +16,14 @@ class InsertIntoOrderedListSpec extends FunSpec {
     describe(s"insert$index") {
       it("should insert into correct position of a long list") {
         val l = List(11, 33, 55, 77, 88)
-        assert(insertFunction(l,  0) == List( 0, 11, 33, 55, 77, 88))
-        assert(insertFunction(l, 44) == List(11, 33, 44, 55, 77, 88))
-        assert(insertFunction(l, 99) == List(11, 33, 55, 77, 88, 99))
+        assert(insertFunction(l,  0) === List( 0, 11, 33, 55, 77, 88))
+        assert(insertFunction(l, 44) === List(11, 33, 44, 55, 77, 88))
+        assert(insertFunction(l, 99) === List(11, 33, 55, 77, 88, 99))
       }
 
       it("should insert into an empty list") {
         val l = List()
-        assert(insertFunction(l, 22) == List(22))
+        assert(insertFunction(l, 22) === List(22))
       }
     }
   }
