@@ -25,4 +25,11 @@ object InsertIntoOrderedList {
     iter(list, Nil)
   }
 
+  def insert3[T <% Ordered[T]](list: List[T], elem: T): List[T] = {
+    list.foldRight(List()) { (x, acc) =>
+      if (elem < x) x :: acc
+      else          x :: elem :: acc
+    }
+  }
+
 }

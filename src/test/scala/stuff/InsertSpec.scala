@@ -8,7 +8,8 @@ class InsertIntoOrderedListSpec extends FunSpec {
   def functions[T <% Ordered[T]] = Seq[(List[T], T) => List[T]](
     insert0 _,
     insert1 _,
-    insert2 _
+    insert2 _,
+    insert3 _
   )
 
   functions[Int].zipWithIndex foreach { case (insertFunction, index) =>
