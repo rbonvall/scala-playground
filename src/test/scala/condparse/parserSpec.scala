@@ -43,6 +43,9 @@ class parserSpec extends FunSpec {
       parsingSucceeds(nameList, "AB,CD,EF", Seq("AB", "CD", "EF"))
       parsingSucceeds(nameList, "AB, CD, EF", Seq("AB", "CD", "EF"))
     }
+    it("should not accept an empty list") {
+      parsingFails(nameList, "")
+    }
   }
 
   describe("CondParser.negatedNameList") {
@@ -52,5 +55,9 @@ class parserSpec extends FunSpec {
       parsingSucceeds(negatedNameList, "NOT(AB, CD, EF)", Seq("AB", "CD", "EF"))
       parsingSucceeds(negatedNameList, "NOT(  AB , CD , EF )", Seq("AB", "CD", "EF"))
     }
+    it("should not accept an empty negated list") {
+      parsingFails(negatedNameList, "NOT()")
+    }
+
   }
 }
