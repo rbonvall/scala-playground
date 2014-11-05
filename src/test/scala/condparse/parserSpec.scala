@@ -5,42 +5,52 @@ import CondParser._
 
 class parserSpec extends FunSpec {
 
+  def parsingSucceeds[T](parser: Parser[T], input: String, expected: T) = {
+    val output = parseAll(parser, input)
+    assert(output.successful && output.get === expected)
+  }
+
+  def parsingFails[T](parser: Parser[T], input: String) = {
+    val output = parseAll(parser, input)
+    assert(output.isEmpty)
+  }
+
   describe("CondParser.number") {
     it("should parse numbers") {
-      assert(parseAll(number, "-98765").get === -98765)
-      assert(parseAll(number, "12.345").get === 12.345)
-      assert(parseAll(number, "+12.345").get === 12.345)
-      assert(parseAll(number, "-12.345").get === -12.345)
+      parsingSucceeds(number, "-98765", -98765)
+      parsingSucceeds(number, "12.345", 12.345)
+      parsingSucceeds(number, "+12.345", 12.345)
+      parsingSucceeds(number, "-12.345", -12.345)
     }
     it("should not accept things with letters") {
-      assert(parseAll(number, "-abc").isEmpty)
-      assert(parseAll(number, "-abc123").isEmpty)
-      assert(parseAll(number, "123abc").isEmpty)
+      parsingFails(number, "-abc")
+      parsingFails(number, "-abc123")
+      parsingFails(number, "123abc")
     }
   }
 
   describe("CondParser.name") {
     it("should parse names") {
-      assert(parse(name, "ABC").get === "ABC")
-      assert(parse(name, "ABc").get === "ABc")
-      assert(parse(name, "x").get === "x")
+      parsingSucceeds(name, "ABC", "ABC")
+      parsingSucceeds(name, "ABc", "ABc")
+      parsingSucceeds(name, "x", "x")
     }
   }
 
   describe("CondParser.nameList") {
     it("should parse list of names") {
-      assert(parse(nameList, "ABC").get === Seq("ABC"))
-      assert(parse(nameList, "AB,CD,EF").get === Seq("AB", "CD", "EF"))
-      assert(parse(nameList, "AB, CD, EF").get === Seq("AB", "CD", "EF"))
+      parsingSucceeds(nameList, "ABC", Seq("ABC"))
+      parsingSucceeds(nameList, "AB,CD,EF", Seq("AB", "CD", "EF"))
+      parsingSucceeds(nameList, "AB, CD, EF", Seq("AB", "CD", "EF"))
     }
   }
 
   describe("CondParser.negatedNameList") {
     it("should parse negated list of names") {
-      assert(parse(negatedNameList, "NOT(ABC)").get === Seq("ABC"))
-      assert(parse(negatedNameList, "NOT(AB,CD,EF)").get === Seq("AB", "CD", "EF"))
-      assert(parse(negatedNameList, "NOT(AB, CD, EF)").get === Seq("AB", "CD", "EF"))
-      assert(parse(negatedNameList, "NOT(  AB , CD , EF )").get === Seq("AB", "CD", "EF"))
+      parsingSucceeds(negatedNameList, "NOT(ABC)", Seq("ABC"))
+      parsingSucceeds(negatedNameList, "NOT(AB,CD,EF)", Seq("AB", "CD", "EF"))
+      parsingSucceeds(negatedNameList, "NOT(AB, CD, EF)", Seq("AB", "CD", "EF"))
+      parsingSucceeds(negatedNameList, "NOT(  AB , CD , EF )", Seq("AB", "CD", "EF"))
     }
   }
 }
