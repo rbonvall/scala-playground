@@ -34,4 +34,13 @@ class parserSpec extends FunSpec {
       assert(parse(nameList, "AB, CD, EF").get === Seq("AB", "CD", "EF"))
     }
   }
+
+  describe("CondParser.negatedNameList") {
+    it("should parse negated list of names") {
+      assert(parse(negatedNameList, "NOT(ABC)").get === Seq("ABC"))
+      assert(parse(negatedNameList, "NOT(AB,CD,EF)").get === Seq("AB", "CD", "EF"))
+      assert(parse(negatedNameList, "NOT(AB, CD, EF)").get === Seq("AB", "CD", "EF"))
+      assert(parse(negatedNameList, "NOT(  AB , CD , EF )").get === Seq("AB", "CD", "EF"))
+    }
+  }
 }
