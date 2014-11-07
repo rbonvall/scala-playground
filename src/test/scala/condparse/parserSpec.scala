@@ -80,6 +80,32 @@ class parserSpec extends FunSpec {
     it("should not accept an empty negated list") {
       parsingFails(negatedNameList, "NOT()")
     }
+  }
 
+  describe("CondParser.boundedInterval") {
+    it("should parse open intervals") {
+      parsingSucceeds(boundedInterval, "1.5<X<2.0",        new Interval(  1.5, false, 2.0,  false))
+      parsingSucceeds(boundedInterval, "-3.14 < X < 2.72", new Interval(-3.14, false, 2.72, false))
+    }
+    it("should parse left-open intervals") {
+      parsingSucceeds(boundedInterval, "1.5<X<=2.0",        new Interval(  1.5, false, 2.0,  true))
+      parsingSucceeds(boundedInterval, "-3.14 < X <= 2.72", new Interval(-3.14, false, 2.72, true))
+    }
+    it("should parse right-open intervals") {
+      parsingSucceeds(boundedInterval, "1.5<=X<2.0",        new Interval(  1.5, true, 2.0,  false))
+      parsingSucceeds(boundedInterval, "-3.14 <= X < 2.72", new Interval(-3.14, true, 2.72, false))
+    }
+    it("should parse closed intervals") {
+      parsingSucceeds(boundedInterval, "1.5<=X<=2.0",        new Interval(  1.5, true, 2.0,  true))
+      parsingSucceeds(boundedInterval, "-3.14 <= X <= 2.72", new Interval(-3.14, true, 2.72, true))
+    }
+    it("should not parse some invalid stuff") {
+      parsingFails(boundedInterval, "-3.14 < = X <= 2.72")
+      parsingFails(boundedInterval, "-3.14 >= X >= 2.72")
+      parsingFails(boundedInterval, "-3.14 < 0.0 <= 2.72")
+      parsingFails(boundedInterval, "X < 1.23 < 45")
+      parsingFails(boundedInterval, "-5 < 1.23 < X")
+      parsingFails(boundedInterval, "-5 <  < X")
+    }
   }
 }

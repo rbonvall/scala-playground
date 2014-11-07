@@ -14,6 +14,13 @@ object CondParser extends RegexParsers {
   def number: Parser[Double] = """[+-]?\d+(\.\d*)?""".r ^^ { _.toDouble }
   def nameList: Parser[Seq[String]] = rep1sep(name, ",")
   def negatedNameList: Parser[Seq[String]] = "NOT(" ~> nameList <~ ")"
+  def lessish: Parser[String] = "<=" | "<"
+  def greatish: Parser[String] = ">=" | ">"
+  def boundedInterval =
+      number ~ lessish ~ name ~ lessish ~ number ^^ { case l ~ opL ~ n ~ opR ~ r =>
+        Interval(Some(Bound(l, opL contains "=")),
+                 Some(Bound(r, opR contains "=")))
+      }
 
 }
 
