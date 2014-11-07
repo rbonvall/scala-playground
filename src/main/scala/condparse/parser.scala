@@ -19,10 +19,30 @@ object CondParser extends RegexParsers {
   def lessish: Parser[String] = "<=" | "<"
   def greatish: Parser[String] = ">=" | ">"
 
-  def boundedInterval = number ~ lessish ~ name ~ lessish ~ number ^^ { case l ~ opL ~ _ ~ opR ~ r =>
-    Interval(Some(Bound(l, opL contains "=")),
-             Some(Bound(r, opR contains "=")))
-  }
+  def boundedInterval =
+    number ~ lessish ~ name ~ lessish ~ number ^^ { case l ~ opL ~ _ ~ opR ~ r =>
+      Interval(Some(Bound(l, opL contains "=")),
+               Some(Bound(r, opR contains "=")))
+    }
+
+  def halfBoundedInterval =
+  ( name ~ lessish ~ number ^^ { case _ ~ op ~ r ⇒
+      Interval(None,
+               Some(Bound(r, op contains "=")))
+    }
+  | name ~ greatish ~ number ^^ { case _ ~ op ~ l ⇒
+      Interval(Some(Bound(l, op contains "=")),
+               None)
+    }
+  | number ~ lessish ~ name ^^ { case l ~ op ~ _ ⇒
+      Interval(Some(Bound(l, op contains "=")),
+               None)
+    }
+  | number ~ greatish ~ name ^^ { case r ~ op ~ _ ⇒
+      Interval(None,
+               Some(Bound(r, op contains "=")))
+    }
+  )
 
 }
 

@@ -108,4 +108,19 @@ class parserSpec extends FunSpec {
       parsingFails(boundedInterval, "-5 <  < X")
     }
   }
+
+  describe("CondParser.halfBoundedInterval") {
+    it("should parse half bounded intervals with name on the left") {
+      parsingSucceeds(halfBoundedInterval, "X <= 2.0",  Interval(None, Some(Bound(2.0, true ))))
+      parsingSucceeds(halfBoundedInterval, "Y < 3.0",   Interval(None, Some(Bound(3.0, false))))
+      parsingSucceeds(halfBoundedInterval, "Z >= 15",   Interval(Some(Bound(15.0, true)), None))
+      parsingSucceeds(halfBoundedInterval, "W > -0.00", Interval(Some(Bound(0.0, false)), None))
+    }
+    it("should parse half bounded intervals with name on the right") {
+      parsingSucceeds(halfBoundedInterval, "2.0 <= X",  Interval(Some(Bound(2.0, true)),  None))
+      parsingSucceeds(halfBoundedInterval, "3.0 <  Y",  Interval(Some(Bound(3.0, false)), None))
+      parsingSucceeds(halfBoundedInterval, "15 >= Z",   Interval(None, Some(Bound(15.0, true))))
+      parsingSucceeds(halfBoundedInterval, "-0.00 > W", Interval(None, Some(Bound(0.0, false))))
+    }
+  }
 }
