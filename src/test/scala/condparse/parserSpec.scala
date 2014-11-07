@@ -99,6 +99,10 @@ class parserSpec extends FunSpec {
       parsingSucceeds(boundedInterval, "1.5<=X<=2.0",        new Interval(  1.5, true, 2.0,  true))
       parsingSucceeds(boundedInterval, "-3.14 <= X <= 2.72", new Interval(-3.14, true, 2.72, true))
     }
+    it("should fail to parse half-bounded intervals") {
+      parsingFails(boundedInterval, "-3.14 <= X")
+      parsingFails(boundedInterval, "X <= -3.14")
+    }
     it("should not parse some invalid stuff") {
       parsingFails(boundedInterval, "-3.14 < = X <= 2.72")
       parsingFails(boundedInterval, "-3.14 >= X >= 2.72")
@@ -106,6 +110,9 @@ class parserSpec extends FunSpec {
       parsingFails(boundedInterval, "X < 1.23 < 45")
       parsingFails(boundedInterval, "-5 < 1.23 < X")
       parsingFails(boundedInterval, "-5 <  < X")
+      parsingFails(boundedInterval, "-3.14 < = X")
+      parsingFails(boundedInterval, "-3.14 <= 2.7")
+      parsingFails(boundedInterval, "X <= Y")
     }
   }
 
@@ -121,6 +128,11 @@ class parserSpec extends FunSpec {
       parsingSucceeds(halfBoundedInterval, "3.0 <  Y",  Interval(Some(Bound(3.0, false)), None))
       parsingSucceeds(halfBoundedInterval, "15 >= Z",   Interval(None, Some(Bound(15.0, true))))
       parsingSucceeds(halfBoundedInterval, "-0.00 > W", Interval(None, Some(Bound(0.0, false))))
+    }
+    it("should not parse some invalid stuff") {
+      parsingFails(boundedInterval, "-3.14 < = X")
+      parsingFails(boundedInterval, "-3.14 <= 2.7")
+      parsingFails(boundedInterval, "X <= Y")
     }
   }
 }
