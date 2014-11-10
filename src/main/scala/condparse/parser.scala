@@ -20,7 +20,7 @@ object CondParser extends RegexParsers {
   def greatish: Parser[String] = ">=" | ">"
 
   def boundedInterval =
-    number ~ lessish ~ name ~ lessish ~ number ^^ { case l ~ opL ~ _ ~ opR ~ r =>
+    number ~ lessish ~ name ~ lessish ~ number ^^ { case l ~ opL ~ _ ~ opR ~ r ⇒
       Interval(Some(Bound(l, opL contains "=")),
                Some(Bound(r, opR contains "=")))
     }
