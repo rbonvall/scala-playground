@@ -2,7 +2,7 @@ package interop;
 
 import interop.Date;
 
-public class App {
+public class InteropApp {
     public static void main(String[] args) {
         dates();
     }
