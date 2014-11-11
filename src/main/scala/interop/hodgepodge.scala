@@ -13,12 +13,14 @@ object dateStuff {
 }
 
 case class Date(year: Int, month: Int, day: Int) {
-  import dateStuff.days
+  import dateStuff._
   def next = (month, day) match {
     // TODO: support leap years
-    case (12, 31)               ⇒ Date(year + 1,      1,     1)
-    case (m, d) if d == days(m) ⇒ Date(year,      m + 1,     1)
-    case (m, d)                 ⇒ Date(year,      m,     d + 1)
+    case (12, 31)                 ⇒ Date(year + 1,      1,     1)
+    case ( 2, 28) if isLeap(year) ⇒ Date(year,          2,    29)
+    case ( 2, 29) if isLeap(year) ⇒ Date(year,          3,     1)
+    case ( m,  d) if d == days(m) ⇒ Date(year,      m + 1,     1)
+    case ( m,  d)                 ⇒ Date(year,      m,     d + 1)
   }
   def < (other: Date) =
     if      (this.year  != other.year)  this.year  < other.year
