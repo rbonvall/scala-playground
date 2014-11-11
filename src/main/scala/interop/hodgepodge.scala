@@ -22,6 +22,8 @@ case class Date(year: Int, month: Int, day: Int) {
     else if (this == other) 0
     else                    1 + (this - other.next)
   }
+  override def toString =
+    List(year, month, day) mkString "/"
 }
 
 object HodgePodge {
