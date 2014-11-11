@@ -2,10 +2,14 @@
 
 package interop
 
-case class Date(year: Int, month: Int, day: Int) {
+object dateStuff {
   val days = Array(0, 31, 28, 31, 30,
                       31, 30, 31, 31,
                       30, 31, 30, 31)
+}
+
+case class Date(year: Int, month: Int, day: Int) {
+  import dateStuff.days
   def next = (month, day) match {
     // TODO: support leap years
     case (12, 31)               ⇒ Date(year + 1,      1,     1)
