@@ -4,6 +4,22 @@ import org.scalatest.FunSpec
 import interop._
 
 class hodgepodgeSpec extends FunSpec {
+  describe("dateStuff.isLeap") {
+    it("works") {
+      assert(!dateStuff.isLeap(1800))
+      assert( dateStuff.isLeap(1804))
+      assert(!dateStuff.isLeap(1900))
+      assert(!dateStuff.isLeap(1991))
+      assert( dateStuff.isLeap(1992))
+      assert( dateStuff.isLeap(2000))
+      assert( dateStuff.isLeap(2012))
+      assert(!dateStuff.isLeap(2013))
+      assert(!dateStuff.isLeap(2014))
+      assert(!dateStuff.isLeap(2015))
+      assert( dateStuff.isLeap(2016))
+      assert(!dateStuff.isLeap(2100))
+    }
+  }
   describe("Date.next") {
     it("works") {
       assert(Date(2014, 11, 11).next === Date(2014, 11, 12))

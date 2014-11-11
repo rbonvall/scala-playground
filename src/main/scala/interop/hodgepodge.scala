@@ -6,6 +6,10 @@ object dateStuff {
   val days = Array(0, 31, 28, 31, 30,
                       31, 30, 31, 31,
                       30, 31, 30, 31)
+  def isLeap(year: Int): Boolean =
+    year %   4 == 0 &&
+    year % 100 != 0 ||
+    year % 400 == 0
 }
 
 case class Date(year: Int, month: Int, day: Int) {
