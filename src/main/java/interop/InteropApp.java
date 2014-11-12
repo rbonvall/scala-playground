@@ -1,7 +1,7 @@
 package interop;
 
-import interop.Date;
-import interop.dateStuff;
+import dates.Date;
+import dates.dateStuff;
 
 public class InteropApp {
     public static void main(String[] args) {

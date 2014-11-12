@@ -1,6 +1,4 @@
-// Adventures in Scala-Java interoperability
-
-package interop
+package dates
 
 object dateStuff {
   val days = Array(0, 31, 28, 31, 30,
