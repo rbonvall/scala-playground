@@ -32,7 +32,3 @@ case class Date(year: Int, month: Int, day: Int) {
   override def toString =
     List(year, month, day) mkString "/"
 }
-
-object HodgePodge {
-
-}
