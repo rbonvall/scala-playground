@@ -15,7 +15,6 @@ object dateStuff {
 case class Date(year: Int, month: Int, day: Int) {
   import dateStuff._
   def next = (month, day) match {
-    // TODO: support leap years
     case (12, 31)                 ⇒ Date(year + 1,      1,     1)
     case ( 2, 28) if isLeap(year) ⇒ Date(year,          2,    29)
     case ( 2, 29) if isLeap(year) ⇒ Date(year,          3,     1)
