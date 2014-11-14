@@ -12,6 +12,7 @@ object VelocityFundamentalPattern extends App {
 
   var context = new VelocityContext
   context.put("name", new String("Velocity"))
+  context.put("fruits", List("apple", "orange", "banana"))
 
   var template: Template = null
   try {

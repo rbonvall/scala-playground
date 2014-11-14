@@ -8,3 +8,9 @@ velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
 est laborum ${name}.
 
+## Too bad you cannot iterate over Scala collections in a foreach directive.
+##
+Have some fruits:
+#foreach ($n in [0..2])
+  $fruits.apply($n)
+#end
