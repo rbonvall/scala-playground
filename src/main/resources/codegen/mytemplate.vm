@@ -14,3 +14,10 @@ Have some fruits:
 #foreach ($n in [0..2])
   $fruits.apply($n)
 #end
+
+## JavaConversions helps though.
+##
+Have some prime numbers:
+#foreach ($p in $primes)
+  $p
+#end

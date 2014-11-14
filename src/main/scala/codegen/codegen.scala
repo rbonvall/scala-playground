@@ -14,6 +14,10 @@ object VelocityFundamentalPattern extends App {
   context.put("name", new String("Velocity"))
   context.put("fruits", List("apple", "orange", "banana"))
 
+  import scala.collection.JavaConversions._
+  val primes: java.util.List[Int] = List(2, 3, 5, 7, 11, 13, 17, 19)
+  context.put("primes", primes)
+
   var template: Template = null
   try {
      template = ve getTemplate "./src/main/resources/codegen/mytemplate.vm"
