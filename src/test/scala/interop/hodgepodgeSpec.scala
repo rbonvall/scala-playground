@@ -2,6 +2,7 @@ package interop
 
 import org.scalatest.FunSpec
 import interop._
+import dates._
 
 class hodgepodgeSpec extends FunSpec {
   describe("dateStuff.isLeap") {
