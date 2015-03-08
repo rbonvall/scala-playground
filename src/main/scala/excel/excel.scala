@@ -25,7 +25,7 @@ object excel {
         rowCells = for {
           j ← 0 until xssfRow.getPhysicalNumberOfCells
           xssfCell = xssfRow.getCell(j)
-        } yield Cell(xssfCell.getReference, xssfCell.getRawValue)
+        } yield Cell(xssfCell.getReference, xssfCell.getStringCellValue)
       } yield rowCells
     } yield Sheet(name, rows)
     Workbook(fileName, sheets)
