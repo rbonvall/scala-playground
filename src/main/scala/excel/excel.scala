@@ -14,8 +14,8 @@ case class Workbook(fileName: String, sheets: Seq[Sheet])
 
 object excel {
   def readWorkbook(fileName: String) = {
-    val file: FileInputStream = new FileInputStream(new File(fileName))
-    val xssfWorkbook: XSSFWorkbook = new XSSFWorkbook(file)
+    val fileStream = new FileInputStream(new File(fileName))
+    val xssfWorkbook = new XSSFWorkbook(fileStream)
     val sheets = for {
       xssfSheet ← xssfWorkbook.asScala.toSeq
       name = xssfSheet.getSheetName
