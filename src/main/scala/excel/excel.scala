@@ -1,6 +1,7 @@
 package excel
 
 import org.apache.poi.xssf.usermodel._
+import scala.collection.JavaConverters._
 import java.io.{FileInputStream, File}
 
 case class Cell(coords: String, content: String) {
@@ -16,15 +17,13 @@ object excel {
     val file: FileInputStream = new FileInputStream(new File(fileName))
     val xssfWorkbook: XSSFWorkbook = new XSSFWorkbook(file)
     val sheets = for {
-      n ← 0 until xssfWorkbook.getNumberOfSheets
-      xssfSheet = xssfWorkbook.getSheetAt(n)
+      xssfSheet ← xssfWorkbook.asScala.toSeq
       name = xssfSheet.getSheetName
       rows = for {
-        i ← 0 until xssfSheet.getPhysicalNumberOfRows
-        xssfRow = xssfSheet.getRow(i)
+        xssfRow ← xssfSheet.asScala.toSeq
         rowCells = for {
-          j ← 0 until xssfRow.getPhysicalNumberOfCells
-          xssfCell = xssfRow.getCell(j)
+          c ← xssfRow.asScala.toSeq
+          xssfCell = c.asInstanceOf[XSSFCell]
         } yield Cell(xssfCell.getReference, xssfCell.getStringCellValue)
       } yield rowCells
     } yield Sheet(name, rows)
