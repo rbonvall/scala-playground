@@ -1,6 +1,7 @@
 package excel
 
 import org.apache.poi.xssf.usermodel._
+import org.apache.poi.ss.usermodel.{Cell ⇒ SSCell}
 import scala.collection.JavaConverters._
 import java.io.{FileInputStream, File}
 
@@ -24,7 +25,15 @@ object excel {
         rowCells = for {
           c ← xssfRow.asScala.toSeq
           xssfCell = c.asInstanceOf[XSSFCell]
-        } yield Cell(xssfCell.getReference, xssfCell.getStringCellValue)
+          value = xssfCell.getCellType match {
+            case SSCell.CELL_TYPE_BLANK   ⇒ ""
+            case SSCell.CELL_TYPE_BOOLEAN ⇒ if (xssfCell.getBooleanCellValue) "=TRUE()" else "=FALSE()"
+            case SSCell.CELL_TYPE_ERROR   ⇒ "=ERROR()"
+            case SSCell.CELL_TYPE_FORMULA ⇒ "=" + xssfCell.getCellFormula
+            case SSCell.CELL_TYPE_NUMERIC ⇒ xssfCell.getNumericCellValue.toString
+            case SSCell.CELL_TYPE_STRING  ⇒ xssfCell.getStringCellValue
+          }
+        } yield Cell(xssfCell.getReference, value)
       } yield rowCells
     } yield Sheet(name, rows)
     fileStream.close

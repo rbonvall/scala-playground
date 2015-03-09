@@ -24,6 +24,13 @@ class excelSpec extends FunSpec {
       assert(cl.coords === "L10")
       assert(cl.content === "Y")
     }
+
+    it("works for second sample file") {
+      val wb = excel.readWorkbook("src/test/resources/sample2.xlsx")
+      assert(wb.sheets.size === 3)
+      val sh = wb.sheets.head
+      println(sh.rows.map { _.map(_.content).mkString(" | ") }.mkString("\n"))
+    }
   }
 
 }
