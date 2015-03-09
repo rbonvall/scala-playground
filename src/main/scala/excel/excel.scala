@@ -27,6 +27,7 @@ object excel {
         } yield Cell(xssfCell.getReference, xssfCell.getStringCellValue)
       } yield rowCells
     } yield Sheet(name, rows)
+    fileStream.close
     Workbook(fileName, sheets)
   }
 }
