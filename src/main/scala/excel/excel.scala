@@ -14,6 +14,19 @@ case class Sheet(name: String, rows: Seq[Seq[Cell]])
 case class Workbook(fileName: String, sheets: Seq[Sheet])
 
 object excel {
+  private def processCell(cell: XSSFCell) = {
+    import SSCell._
+    val value = cell.getCellType match {
+      case CELL_TYPE_BLANK   ⇒ ""
+      case CELL_TYPE_BOOLEAN ⇒ if (cell.getBooleanCellValue) "=TRUE()" else "=FALSE()"
+      case CELL_TYPE_ERROR   ⇒ "=ERROR()"
+      case CELL_TYPE_FORMULA ⇒ "=" + cell.getCellFormula
+      case CELL_TYPE_NUMERIC ⇒ cell.getNumericCellValue.toString
+      case CELL_TYPE_STRING  ⇒ cell.getStringCellValue
+    }
+    Cell(cell.getReference, value)
+  }
+
   def readWorkbook(fileName: String) = {
     val fileStream = new FileInputStream(new File(fileName))
     val xssfWorkbook = new XSSFWorkbook(fileStream)
@@ -24,16 +37,7 @@ object excel {
         xssfRow ← xssfSheet.asScala.toSeq
         rowCells = for {
           c ← xssfRow.asScala.toSeq
-          xssfCell = c.asInstanceOf[XSSFCell]
-          value = xssfCell.getCellType match {
-            case SSCell.CELL_TYPE_BLANK   ⇒ ""
-            case SSCell.CELL_TYPE_BOOLEAN ⇒ if (xssfCell.getBooleanCellValue) "=TRUE()" else "=FALSE()"
-            case SSCell.CELL_TYPE_ERROR   ⇒ "=ERROR()"
-            case SSCell.CELL_TYPE_FORMULA ⇒ "=" + xssfCell.getCellFormula
-            case SSCell.CELL_TYPE_NUMERIC ⇒ xssfCell.getNumericCellValue.toString
-            case SSCell.CELL_TYPE_STRING  ⇒ xssfCell.getStringCellValue
-          }
-        } yield Cell(xssfCell.getReference, value)
+        } yield processCell(c.asInstanceOf[XSSFCell])
       } yield rowCells
     } yield Sheet(name, rows)
     fileStream.close
