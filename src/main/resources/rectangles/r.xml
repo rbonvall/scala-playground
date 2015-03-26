@@ -1,0 +1,18 @@
+<stuff>
+  <central>
+    <w>10</w>
+    <h>50</h>
+    <xc>0</xc>
+    <yc>0</yc>
+  </central>
+  <pins>
+    <nx>2</nx>
+    <ny>3</ny>
+    <first>
+      <w>10</w>
+      <h>50</h>
+      <xc>-20</xc>
+      <yc>45</yc>
+    </first>
+  </pins>
+</stuff>
