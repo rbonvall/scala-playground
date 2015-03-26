@@ -17,11 +17,6 @@ class rectanglesSpec extends FunSpec {
        }
      }
 
-     it("has the correct top-right corner") {
-       new Fixture {
-       }
-     }
-
      it("moves horizontally") {
        new Fixture {
          assert(r.hMove( 0.0) === r)
