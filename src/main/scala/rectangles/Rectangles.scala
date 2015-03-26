@@ -1,0 +1,25 @@
+package rectangles
+
+//             w     (x1, y1)
+//        +----------+
+//      h |          |
+//        +----------+
+// (x0, y0)
+
+case class Rectangle(val x0: Double,
+                     val y0: Double,
+                     val width: Double,
+                     val height: Double) {
+  val x1 = x0 + width
+  val y1 = y0 + height
+  val p0 = (x0, y0)
+  val p1 = (x1, y1)
+
+  def hMove(dx: Double) = this.copy(x0 = x0 + dx)
+  def vMove(dy: Double) = this.copy(y0 = y0 + dy)
+  def trimRight(dx: Double) = this.copy(width = width - dx)
+  def trimTop  (dy: Double) = this.copy(height = height - dy)
+  def trimLeft  (dx: Double) = this.trimRight(dx).hMove(dx)
+  def trimBottom(dy: Double) = this.trimTop  (dy).vMove(dy)
+}
+
