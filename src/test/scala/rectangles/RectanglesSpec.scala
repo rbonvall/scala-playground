@@ -9,15 +9,16 @@ trait Fixture {
 class rectanglesSpec extends FunSpec {
    describe("Rectangle") {
 
-     it("has the correct bottom-left corner") {
+     it("has the correct points") {
        new Fixture {
          assert(r.p0 === (5.0, 6.0))
+         assert(r.p1 === (12.0, 14.0))
+         assert(r.center === (8.5, 10.0))
        }
      }
 
      it("has the correct top-right corner") {
        new Fixture {
-         assert(r.p1 === (12.0, 14.0))
        }
      }
 

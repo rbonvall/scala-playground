@@ -14,6 +14,7 @@ case class Rectangle(val x0: Double,
   val y1 = y0 + height
   val p0 = (x0, y0)
   val p1 = (x1, y1)
+  val center = (x0 + width/2, y0 + height/2)
 
   def hMove(dx: Double) = this.copy(x0 = x0 + dx)
   def vMove(dy: Double) = this.copy(y0 = y0 + dy)
