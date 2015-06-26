@@ -6,5 +6,7 @@ libraryDependencies ++= Seq(
 , "org.apache.velocity"    % "velocity"                  % "1.6.2"
 , "org.apache.poi"         % "poi"                       % "3.11"
 , "org.apache.poi"         % "poi-ooxml"                 % "3.11"
+, "org.scala-lang.modules" %% "scala-xml"                % "1.0.3"
+, "org.eclipse.jgit"       % "org.eclipse.jgit"          % "4.0.0.201506090130-r"
 )
 
