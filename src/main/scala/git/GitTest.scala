@@ -7,6 +7,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import scala.collection.immutable.ListMap
 import java.io.File
 
+import scala.collection.JavaConverters._
+
 
 case class Tree[T](value: T, children: ListMap[String, Tree[T]])
 
@@ -42,12 +44,13 @@ case class Repo(path: String) {
     id
   }
 
-  def commit(treeId: ObjectId, msg: String): ObjectId = {
+  def commit(treeId: ObjectId, msg: String, parents: Seq[ObjectId] = Nil): ObjectId = {
     val builder = new CommitBuilder
     builder.setTreeId(treeId)
     builder.setMessage(msg)
     builder.setAuthor(me)
     builder.setCommitter(me)
+    builder.setParentIds(parents.asJava)
     val inserter = repo.newObjectInserter
     val id = inserter.insert(builder)
     inserter.flush()

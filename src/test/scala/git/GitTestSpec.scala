@@ -44,7 +44,7 @@ class GitTestSpec extends FunSpec {
       val c1 = repo.commit(t1, "First commit")
       println(s"First commit: $c1")
       val t2 = repo.insertTree(tree2)
-      val c2 = repo.commit(t2, "Second commit")
+      val c2 = repo.commit(t2, "Second commit", Seq(c1))
       println(s"Second commit: $c2")
     }
   }
