@@ -6,34 +6,35 @@ import scala.collection.immutable.ListMap
 class GitTestSpec extends FunSpec {
   describe("Git test") {
     it("works") {
+      val ø = ListMap.empty[String, Tree[String]]
       val tree1 =
         Tree("root", ListMap(
           "first" → Tree("abcde", ListMap(
-            "a" → Tree("lorem", ListMap.empty),
-            "b" → Tree("ipsum", ListMap.empty),
+            "a" → Tree("lorem", ø),
+            "b" → Tree("ipsum", ø),
             "c" → Tree("dolor", ListMap(
-              "cc" → Tree("sit", ListMap.empty)
+              "cc" → Tree("sit", ø)
             )),
-            "d" → Tree("amet", ListMap.empty)
+            "d" → Tree("amet", ø)
           )),
           "second" → Tree("defghi", ListMap(
-            "x" → Tree("stuff", ListMap.empty),
-            "y" → Tree("guareva", ListMap.empty)
+            "x" → Tree("stuff", ø),
+            "y" → Tree("guareva", ø)
           ))
         ))
       val tree2 =
         Tree("root", ListMap(
           "first" → Tree("abcde", ListMap(
-            "a" → Tree("lorem", ListMap.empty),
+            "a" → Tree("lorem", ø),
             "c" → Tree("dolor", ListMap(
               "cc" → Tree("sit", ListMap(
                 "second" → Tree("defghi", ListMap(
-                  "x" → Tree("stuff", ListMap.empty),
-                  "y" → Tree("guareva", ListMap.empty)
+                  "x" → Tree("stuff", ø),
+                  "y" → Tree("guareva", ø)
                 ))
               ))
             )),
-            "d" → Tree("amet", ListMap.empty)
+            "d" → Tree("amet", ø)
           ))
         ))
 
