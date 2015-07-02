@@ -1,6 +1,6 @@
 package git
 
-import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.api.{Git, CommitCommand}
 import org.eclipse.jgit.lib._
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 
@@ -45,16 +45,27 @@ case class Repo(path: String) {
   }
 
   def commit(treeId: ObjectId, msg: String, parents: Seq[ObjectId] = Nil): ObjectId = {
+    val headId = repo.resolve(Constants.HEAD + "^{commit}")
     val builder = new CommitBuilder
     builder.setTreeId(treeId)
     builder.setMessage(msg)
     builder.setAuthor(me)
     builder.setCommitter(me)
-    builder.setParentIds(parents.asJava)
+    if (headId != null)
+      builder.setParentIds(Seq(headId).asJava)
     val inserter = repo.newObjectInserter
     val id = inserter.insert(builder)
     inserter.flush()
+    updateHead(id)
     id
+  }
+
+  def updateHead(commitId: ObjectId) = {
+    // val commit = repo.parseCommit(commitId)
+    val update = repo.updateRef(Constants.HEAD)
+    update.setNewObjectId(commitId)
+    update.setRefLogMessage(s"commit: YES, COMMIT!", false)
+    update.forceUpdate()
   }
 
 
