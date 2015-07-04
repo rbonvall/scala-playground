@@ -16,18 +16,19 @@ case class Tree[T](value: T, children: ListMap[String, Tree[T]])
 case class Repo(path: String) {
   val repo = FileRepositoryBuilder.create(new File(s"$path/.git"))
   val me = new PersonIdent("Roberto Bonvallet", "rbonvall@gmail.com")
+  val inserter = repo.newObjectInserter
+  val reader = repo.newObjectReader
 
   def insertBlob(content: String): ObjectId = {
-    val inserter = repo.newObjectInserter
     val id = inserter.insert(Constants.OBJ_BLOB, content.getBytes("utf-8"))
     inserter.flush()
     id
   }
 
   def readBlob(id: ObjectId): String = {
-    val loader = repo.newObjectReader.open(id)
-    require(loader.getType == Constants.OBJ_BLOB)
-    new String(loader.getBytes, "utf-8")
+    val obj = reader.open(id)
+    require(obj.getType == Constants.OBJ_BLOB)
+    new String(obj.getBytes, "utf-8")
   }
 
   def insertTree(tree: Tree[String]): ObjectId = {
@@ -38,7 +39,6 @@ case class Repo(path: String) {
       val childId = insertTree(t)
       formatter.append(n, FileMode.TREE, childId)
     }
-    val inserter = repo.newObjectInserter
     val id = inserter.insert(formatter)
     inserter.flush()
     id
@@ -53,7 +53,6 @@ case class Repo(path: String) {
     builder.setCommitter(me)
     if (headId != null)
       builder.setParentIds(Seq(headId).asJava)
-    val inserter = repo.newObjectInserter
     val id = inserter.insert(builder)
     inserter.flush()
     updateHead(id)
