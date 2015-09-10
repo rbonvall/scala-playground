@@ -24,7 +24,7 @@ class FastExcelSpec extends FunSpec {
 
       assert(s("G1") === "text")
       assert(s("G2") === "3.14159")
-      assert(s("G3") === "1")
+      assert(s("G3") === "true")
       assert(s("G4") === "#REF!")
     }
   }

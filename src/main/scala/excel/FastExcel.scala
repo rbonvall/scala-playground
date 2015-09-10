@@ -75,6 +75,9 @@ object FastExcelReader {
             val idx = lastContents.toInt
             value = new XSSFRichTextString(sst.getEntryAt(idx)).toString
           }
+          else if (cellType != null && cellType == "b") {
+            value = if (lastContents.toInt == 0) "false" else "true"
+          }
           else {
             value = lastContents
           }
