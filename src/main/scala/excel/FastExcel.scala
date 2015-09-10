@@ -19,7 +19,7 @@ import scala.collection.JavaConverters._
 
 case class ExcelCell(value: String, formula: String)
 case class ExcelSheet(cells: Map[String, ExcelCell]) {
-  def apply(ref: String) = cells.get(ref).map(_.value)
+  def apply(ref: String) = cells.get(ref).map(_.value).getOrElse("")
 }
 
 class FastExcelReader(val fileName: String) extends Iterable[ExcelSheet] {

@@ -14,18 +14,18 @@ class FastExcelSpec extends FunSpec {
       val sheets = workbook.toList
       assert(sheets.length === 2)
       val s = sheets(0)
-      assert(s("A1") === Some("a"))
+      assert(s("A1") === "a")
 
-      assert(s("F1") === Some("h"))
-      assert(s("F2") === Some("m"))
-      assert(s("F3") === Some("no"))
-      assert(s("F4") === Some(""))
-      assert(s("F7") === None)
+      assert(s("F1") === "h")
+      assert(s("F2") === "m")
+      assert(s("F3") === "no")
+      assert(s("F4") === "")
+      assert(s("F7") === "")
 
-      assert(s("G1") === Some("text"))
-      assert(s("G2") === Some("3.14159"))
-      assert(s("G3") === Some("1"))
-      assert(s("G4") === Some("#REF!"))
+      assert(s("G1") === "text")
+      assert(s("G2") === "3.14159")
+      assert(s("G3") === "1")
+      assert(s("G4") === "#REF!")
     }
   }
 
