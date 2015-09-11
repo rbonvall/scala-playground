@@ -18,7 +18,7 @@ import org.xml.sax.helpers.XMLReaderFactory
 import scala.collection.JavaConverters._
 
 case class ExcelCell(value: String, formula: String)
-case class ExcelSheet(cells: Map[String, ExcelCell]) {
+case class ExcelSheet(name: String, cells: Map[String, ExcelCell]) {
   def apply(ref: String) = cells.get(ref).map(_.value).getOrElse("")
 }
 
@@ -30,11 +30,14 @@ class FastExcelReader(val fileName: String) extends Iterable[ExcelSheet] {
   val handler = new FastExcelReader.SheetHandler(sst)
   parser.setContentHandler(handler)
 
-  def iterator = reader.getSheetsData.asScala.map { sheet ⇒
-    val src = new InputSource(sheet)
-    parser.parse(src)
-    sheet.close()
-    handler.parsedSheet
+  def iterator = {
+    val it = reader.getSheetsData.asInstanceOf[XSSFReader.SheetIterator]
+    it.asScala.map { sheet ⇒
+      val src = new InputSource(sheet)
+      parser.parse(src)
+      sheet.close()
+      handler.parsedSheet(it.getSheetName)
+    }
   }
 
 }
@@ -51,7 +54,7 @@ object FastExcelReader {
     var cellType = ""
     var s = ""
 
-    def parsedSheet = ExcelSheet(cells.toMap)
+    def parsedSheet(name: String) = ExcelSheet(name, cells.toMap)
 
     override def startElement(uri: String, localName: String, name: String, attributes: Attributes) = {
       name match {
@@ -92,6 +95,4 @@ object FastExcelReader {
 
   }
 }
-
-
 

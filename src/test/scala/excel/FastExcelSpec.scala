@@ -7,13 +7,12 @@ class FastExcelSpec extends FunSpec {
   describe("FastExcelReader") {
     it("works") {
       val workbook = new FastExcelReader("src/test/resources/example.xlsx")
-      // workbook.foreach { sheet ⇒
-      //   println( sheet.cells.mkString("\n") )
-      //   println()
-      // }
       val sheets = workbook.toList
       assert(sheets.length === 2)
+      assert(sheets.map(_.name) === List("sh1", "sh2"))
+
       val s = sheets(0)
+
       assert(s("A1") === "a")
 
       assert(s("F1") === "h")
