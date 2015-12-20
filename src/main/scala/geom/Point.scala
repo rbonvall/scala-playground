@@ -1,17 +1,17 @@
 package geom
 
 case class Point(x: Double, y: Double) {
-  import Point.π
+  import Math.{atan2, PI ⇒ π, sqrt ⇒ √}
 
   def +(p: Point) = Point(x + p.x, y + p.y)
   def -(p: Point) = Point(x - p.x, y - p.y)
   def *(s: Double) = Point(s * x, s * y)
-  def θ = (Math.atan2(y, x) + 2 * π) % (2 * π)
+  def θ = (atan2(y, x) + 2 * π) % (2 * π)
 
   def distanceTo(p: Point): Double = {
     val δx = p.x - x
     val δy = p.y - y
-    Math.sqrt(δx * δx + δy * δy)
+    √(δx * δx + δy * δy)
   }
 
 }
