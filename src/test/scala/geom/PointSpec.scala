@@ -3,7 +3,7 @@ package geom
 import org.scalatest.FunSpec
 
 class PointSpec extends FunSpec {
-  import Point.π
+  import Math.{PI ⇒ π}
 
   describe("Point") {
 

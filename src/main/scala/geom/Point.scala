@@ -15,10 +15,6 @@ case class Point(x: Double, y: Double) {
 
 }
 
-object Point {
-  val π = Math.PI
-}
-
 object PointTupleConversions {
   implicit def pointToTuple(p: Point): (Double, Double) = (p.x, p.y)
   implicit def tupleToPoint(t: (Double, Double)): Point = Point(t._1, t._2)
