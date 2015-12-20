@@ -8,9 +8,8 @@ case class Point(x: Double, y: Double) {
   def *(s: Double) = Point(s * x, s * y)
   def θ = (atan2(y, x) + 2 * π) % (2 * π)
 
-  def distanceTo(p: Point): Double = {
-    val δx = p.x - x
-    val δy = p.y - y
+  def distanceTo(that: Point): Double = {
+    val Point(δx, δy) = this - that
     √(δx * δx + δy * δy)
   }
 
