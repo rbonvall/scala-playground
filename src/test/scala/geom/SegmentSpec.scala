@@ -33,3 +33,33 @@ class SegmentSpec extends FunSpec {
 
 }
 
+import org.scalacheck.Properties
+import org.scalacheck.Prop.forAll
+import org.scalacheck.Gen
+import org.scalacheck.Arbitrary._
+
+object SegmentProperties extends Properties("Segment") {
+
+  object GenSegment {
+    def segment: Gen[Segment] = for {
+      x0 ← arbitrary[Double]
+      y0 ← arbitrary[Double]
+      x1 ← arbitrary[Double]
+      y1 ← arbitrary[Double]
+    } yield Segment(Point(x0, y0), Point(x1, y1))
+  }
+
+  property("contains start point") = forAll(GenSegment.segment) { s: Segment ⇒
+    s contains s.start
+  }
+  property("contains end point") = forAll(GenSegment.segment) { s: Segment ⇒
+    s contains s.end
+  }
+//  property("contains interior point") = forAll(GenSegment.segment) { s: Segment ⇒
+//    s contains (s.start * 0.4 + s.end * 0.6)
+//  }
+//  property("does not contain colinear outer point") = forAll(GenSegment.segment) { s: Segment ⇒
+//    !( s contains (s.start * 1.5 + s.end * -0.5) )
+//  }
+
+}
