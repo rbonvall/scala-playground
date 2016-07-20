@@ -10,5 +10,6 @@ libraryDependencies ++= Seq(
 , "org.scala-lang.modules" %% "scala-xml"                % "1.0.3"
 , "org.eclipse.jgit"       % "org.eclipse.jgit"          % "4.0.0.201506090130-r"
 , "xerces"                 % "xercesImpl"                % "2.11.0"
+, "com.github.pathikrit"   %% "better-files"             % "2.16.0"
 )
 
