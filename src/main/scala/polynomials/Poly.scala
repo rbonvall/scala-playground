@@ -7,10 +7,8 @@ case class Poly private(coefs: List[Double]) {
     coefs.zipWithIndex
       .filter { case (a, _) ⇒ a != 0 }
       .map {
-        case ( 1, 0) ⇒ ("+1", 0)
-        case (-1, 0) ⇒ ("-1", 0)
-        case ( 1, k) ⇒ ("+", k)
-        case (-1, k) ⇒ ("-", k)
+        case ( 1, k) if k != 0 ⇒ ("+", k)
+        case (-1, k) if k != 0 ⇒ ("-", k)
         case ( a, k) ⇒ (f"$a%+f".replaceAll("[.]?0*$", ""), k)
       }
       .map {
