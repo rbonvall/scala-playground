@@ -12,5 +12,6 @@ libraryDependencies ++= Seq(
 , "xerces"                 % "xercesImpl"                % "2.11.0"
 , "com.github.pathikrit"   %% "better-files"             % "2.16.0"
 , "org.scala-lang"         % "scala-reflect"             % scalaVersion.value
+, "com.lihaoyi"            %% "fastparse"                % "0.4.1"
 )
 
